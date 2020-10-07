@@ -3,6 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/01-javase/01-javase.iml" filepath="$PROJECT_DIR$/01-javase/01-javase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-maven/02-maven.iml" filepath="$PROJECT_DIR$/02-maven/02-maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-spring-initializr/03-spring-initializr.iml" filepath="$PROJECT_DIR$/03-spring-initializr/03-spring-initializr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04-springboot-start/04-springboot-start.iml" filepath="$PROJECT_DIR$/04-springboot-start/04-springboot-start.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05-springboot-features/05-springboot-features.iml" filepath="$PROJECT_DIR$/05-springboot-features/05-springboot-features.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06-springboot-di/06-springboot-di.iml" filepath="$PROJECT_DIR$/06-springboot-di/06-springboot-di.iml" />
+      <module fileurl="file://$PROJECT_DIR$/07-springboot-hikaricp/07-springboot-hikaricp.iml" filepath="$PROJECT_DIR$/07-springboot-hikaricp/07-springboot-hikaricp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/08-springboot-mtbatis/08-springboot-mtbatis.iml" filepath="$PROJECT_DIR$/08-springboot-mtbatis/08-springboot-mtbatis.iml" />
     </modules>
   </component>
 </project>
