@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/02-maven/pom.xml" />
+        <option value="$PROJECT_DIR$/03-spring-initializr/pom.xml" />
+        <option value="$PROJECT_DIR$/04-springboot-start/pom.xml" />
+        <option value="$PROJECT_DIR$/05-springboot-features/pom.xml" />
+        <option value="$PROJECT_DIR$/06-springboot-di/pom.xml" />
+        <option value="$PROJECT_DIR$/07-springboot-hikaricp/pom.xml" />
+        <option value="$PROJECT_DIR$/08-springboot-mtbatis/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
