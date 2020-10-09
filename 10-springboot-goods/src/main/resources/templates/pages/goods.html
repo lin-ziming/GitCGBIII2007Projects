@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1>The Goods Page</h1>
+<!--        static目录不能用thymeleaf-->
+        <a th:href="@{/goods/doGoodsAddUI}">添加商品</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>remark</th>
+                    <th>createdTime</th>
+                    <th colspan="2">operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--th:each 为thymeleaf中定义的循环属性，用于迭代集合元素
+                    ${}为thymeleaf中的el表达式，用于从指定作用域获取数据，
+                    th:text为thymeleaf中一个像元素内部插入文本的一个特有属性-->
+                <tr th:each="g: ${goodsList}">
+                    <td th:text="${g.id}">1</td>
+                    <td th:text="${g.name}">MySQL</td>
+                    <td th:text="${g.remark}">DBMS</td>
+                    <td th:text="${#dates.format(g.createdTime, 'yyyy/MM/dd HH:mm')}">2020/10/09</td>
+                    <td><a th:href="@{/goods/doDeleteById/{id}(id=${g.id})}">delete</a></td>
+                    <td><a th:href="@{/goods/doFindById/{id}(id=${g.id})}">update</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
