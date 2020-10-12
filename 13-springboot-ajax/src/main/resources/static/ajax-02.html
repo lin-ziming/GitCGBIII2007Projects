@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1>The Ajax 02 Page</h1>
+        <fieldset>
+            <legend>Ajax 表单请求</legend>
+            <form enctype="application/x-www-form-urlencoded">
+                <input type="text" name="name" onblur="doCheck()"/>
+                <button type="button" onclick="doSave()">Save</button>
+            </form>
+            <span id="result"></span>
+        </fieldset>
+    </div>
+    <script>
+        function doSave(){//发送异步请求，检查name是否存在
+            //1.创建xhr对象
+            let xhr = new XMLHttpRequest();
+            //2.设置状态监听
+            xhr.onreadystatechange=function (){
+                if(xhr.readyState==4 && xhr.status==200){
+                    document.getElementById("result").innerHTML = xhr.responseText;
+                }
+            }
+            //3.建立Get连接(get请求传参，要把参数拼接到url中)
+            let name=document.forms[0].name.value;//获取表单中name对应的value属性值
+            console.log("name",name);
+            const url="http://localhost/doSave";
+            xhr.open("POST",url,true);
+            //post请求假如需要向服务端传递参数,则必须在open之后设置请求头
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            //4.发送异步POST请求(参数需要写到send方法内部)-表单数据或数据量比较大时
+            xhr.send(`name=${name}`);//通过模板字符串``和${}表示拼接url
+        }
+        function doCheck(){//发送异步请求，检查name是否存在
+            //1.创建xhr对象
+            let xhr = new XMLHttpRequest();
+            //2.设置状态监听
+            xhr.onreadystatechange=function (){
+                if(xhr.readyState==4 && xhr.status==200){
+                    document.getElementById("result").innerHTML = xhr.responseText;
+                }
+            }
+            //3.建立Get连接(get请求传参，要把参数拼接到url中)
+            let name=document.forms[0].name.value;//获取表单中name对应的value属性值
+            //let name=document.getElementById("nameId").value;//基于节点id获取
+            //let name=document.querySelector("#nameId").value;//基于id选择器(前缀"#")
+            //let name=document.querySelector(".mingzi").value;//基于class选择器(前缀".")
+            //let name=document.querySelector("input").value;
+            console.log("name",name);
+            const url=`http://localhost/doCheck?name=${name}`;
+            xhr.open("GET",url,true);
+            //4.发送异步请求
+            xhr.send(null);
+        }
+    </script>
+</body>
+</html>

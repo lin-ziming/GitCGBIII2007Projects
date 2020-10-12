@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1>The Ajax 01 Page</h1>
+    <fieldset>
+        <legend>Ajax 异步请求</legend>
+        <button onclick="doAjaxGet()">Ajax Get Response</button>
+        <span id="resultId">Loading data...</span>
+    </fieldset>
+</div>
+</body>
+<script>
+    function doAjaxGet(){//这个方法运行于浏览的
+        //1.创建XHR对象（此对象是ajax技术应用的入口对象，发送异步请求，处理响应结果都是通过此对象实现）
+        var xhr=new XMLHttpRequest();
+        //2.设置状态监听（将服务端响应的结果更新到resultId位置）
+        xhr.onreadystatechange=function (){
+            //readyState的值有0,1,2,3,4
+            //0表示还未执行open方法
+            //1表示已执行open方法但还未执行send方法
+            //2表示已执行send方法
+            //3表示客户端正在接收服务端响应的数据
+            //4表示客户端已经完成响应数据的接收
+            if(xhr.readyState==4 && xhr.status==200){
+                var result=xhr.responseText;
+                document.getElementById("resultId").innerHTML=result;
+            }
+        }
+        //3.建立与服务端的连接
+        xhr.open("GET","http://localhost/doAjaxGet",true);//true表示异步(底层会启动线程)
+        //4.发送请求
+        xhr.send(null);//将请求交给ajax引擎
+
+        console.log("do other...");//run main thread
+    }
+</script>
+</html>
