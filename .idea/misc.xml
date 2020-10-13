@@ -10,6 +10,10 @@
         <option value="$PROJECT_DIR$/06-springboot-di/pom.xml" />
         <option value="$PROJECT_DIR$/07-springboot-hikaricp/pom.xml" />
         <option value="$PROJECT_DIR$/08-springboot-mtbatis/pom.xml" />
+        <option value="$PROJECT_DIR$/10-springboot-goods/pom.xml" />
+        <option value="$PROJECT_DIR$/11-springboot-exception/pom.xml" />
+        <option value="$PROJECT_DIR$/12-springboot-response-result/pom.xml" />
+        <option value="$PROJECT_DIR$/13-springboot-ajax/pom.xml" />
       </list>
     </option>
   </component>

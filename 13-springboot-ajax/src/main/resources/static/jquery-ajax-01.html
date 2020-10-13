@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <button onclick="doAjax()">$.ajax(...)</button>
+        <button onclick="doAjaxGet()">$.get(...)</button>
+        <button onclick="doAjaxGetJSON()">$.getJson(...)</button>
+        <button onclick="doAjaxPost()">$.post(...)</button>
+        <button onclick="doAjaxPostJSON()">$.ajaxPostJSON(...)</button>
+        <button onclick="doAjaxLoad()">$.("selector").load(...)</button>
+    </div>
+    <div id="result"></div>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        function doAjaxLoad(){
+            //1.url
+            let url="http://localhost/doGet";
+            //2.send ajax get request
+            //jquery 中load函数语法 .load(url[,params][,callback])
+            $("#result").load(url,function (){//资源加载完成以后执行
+                console.log("load complete")
+            });//异步加载url对应的资源，然后更新到result位置
+        }
+        function doAjaxPostJSON(){
+            let url="http://localhost/doPostJSON";
+            // let params="id=1&name=xiaomi&letter=x";//传统传参方法
+            let params={"id":1,"name":"huawei","letter":"h"};//json格式的对象，底层还是拼接成上面的方式
+            $.ajax({
+               type:"post",
+               url:url,
+               contentType:"application/json;charset=utf-8",
+               data:JSON.stringify(params),
+               success:function (result){
+                   $("#result").html(result);
+                   console.log(result);
+               }
+            });
+        }
+        function doAjaxPost(){
+            let url="http://localhost/doPost";
+            // let params="id=1&name=xiaomi&letter=x";//传统传参方法
+            let params={"id":1,"name":"huawei","letter":"h"};//json格式的对象，底层还是拼接成上面的方式
+            $.post(url,params,function (result){
+                console.log(result);
+            })
+        }
+        function doAjaxGetJSON(){
+            //1.url
+            let url="http://localhost/doGet";
+            //2.params
+            let params="";
+            //3.send ajax request
+            //GET请求函数
+            $.getJSON(url,params,function (result){//success
+                console.log(result);//JSON格式对象
+            });
+        }
+        function doAjaxGet(){
+            //1.url
+            let url="http://localhost/doGet";
+            //2.params
+            let params="";
+            //3.send ajax request
+            //GET请求函数
+            $.get(url,params,function (result){//success
+                console.log(result);
+            });//若返回的字符串满足json格式，会自动转成js对象
+        }
+        function doAjax(){
+            //1.请求url
+            let url="http://localhost/doAjax";
+            //2.请求参数
+            let params="msg=hello jquery ajax";
+            //3.发送异步ajax请求
+            //$.ajax函数为jquery中的一个ajax函数
+            $.ajax({
+                type:"GET",//默认是GET请求
+                url:url,
+                data:params,
+                dataType:"text",
+                async:true,//默认是true
+                success:function (result){//readyState==4 && status==200 时执行
+                    $("#result").html(result);//等效于innerHTML,id一定要加#
+                },
+                error:function (xhr){//readyState==4 && status!=200
+                    $("#result").html("request fail");
+                    console.log(xhr);//XMLHttpRequest对象里面可以看到readyState和status
+                }//服务端没有处理的异常，抛给客户端才会执行error方法
+            });
+        }
+    </script>
+</body>
+</html>

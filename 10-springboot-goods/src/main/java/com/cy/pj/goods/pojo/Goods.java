@@ -1,7 +1,11 @@
 package com.cy.pj.goods.pojo;
 
+import lombok.Data;
+
 import java.util.Date;
 /**pojo:用于封装商品信息*/
+
+@Data//@Setter+@Getter+@ToString
 public class Goods {
     private Long id;//id bigint primary key auto_increment
     private String name;//name varchar(100) not null

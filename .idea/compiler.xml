@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,9 +11,13 @@
         <module name="03-spring-initializr" />
         <module name="06-springboot-di" />
         <module name="02-maven" />
+        <module name="11-springboot-exception" />
+        <module name="13-springboot-ajax" />
         <module name="05-springboot-features" />
         <module name="07-springboot-hikaricp" />
+        <module name="10-springboot-goods" />
         <module name="04-springboot-start" />
+        <module name="12-springboot-response-result" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +28,10 @@
       <module name="06-springboot-di" target="1.8" />
       <module name="07-springboot-hikaricp" target="1.8" />
       <module name="08-springboot-mtbatis" target="1.8" />
+      <module name="10-springboot-goods" target="1.8" />
+      <module name="11-springboot-exception" target="1.8" />
+      <module name="12-springboot-response-result" target="1.8" />
+      <module name="13-springboot-ajax" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -33,6 +42,10 @@
       <module name="06-springboot-di" options="-parameters" />
       <module name="07-springboot-hikaricp" options="-parameters" />
       <module name="08-springboot-mtbatis" options="-parameters" />
+      <module name="10-springboot-goods" options="-parameters" />
+      <module name="11-springboot-exception" options="-parameters" />
+      <module name="12-springboot-response-result" options="-parameters" />
+      <module name="13-springboot-ajax" options="-parameters" />
     </option>
   </component>
 </project>

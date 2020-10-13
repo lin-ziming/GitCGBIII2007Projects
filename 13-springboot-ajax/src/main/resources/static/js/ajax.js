@@ -19,7 +19,7 @@ function doAjaxPost(url,params,callback){
             callback(xhr.responseText);
         }
     }
-    xhr.open("POST","url",true);
+    xhr.open("POST",url,true);
     //post请求假如需要向服务端传递参数,则必须在open之后设置请求头
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     xhr.send(params);

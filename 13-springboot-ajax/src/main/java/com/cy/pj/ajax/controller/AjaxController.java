@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AjaxController {
 
     private List<String> list=new ArrayList<>();//假设这是存储名字的数据库

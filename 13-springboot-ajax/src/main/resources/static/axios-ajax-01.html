@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <button onclick="doAxiosAjaxGet()">axios.get(...)</button>
+        <button onclick="doAxiosAjaxPost()">axios.post(...)</button>
+        <button onclick="doAxiosAjaxPostJSON()">axios.postJSON(...)</button>
+    </div>
+    <div class="result"></div>
+    <script src="js/axios.min.js"></script>
+    <script>
+        function doAxiosAjaxPostJSON(){
+            let url="http://localhost/doPostJSON";
+            let params={"msg":"hello axios"};
+            // axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded';
+            axios.post(url,params)
+                .then(function (result){//callback function
+                console.log(result);
+                document.querySelector(".result").innerHTML=JSON.stringify(result.data);//原生的js代码
+                })
+                .catch(function (error){
+                console.log(error);
+                });
+        }
+        function doAxiosAjaxPost(){
+            let url="http://localhost/doPost";
+            let params="msg=hello axios";
+            axios.post(url,params)
+                .then(function (res){
+                    console.log(res);
+                    document.querySelector(".result").innerHTML=JSON.stringify(res.data);
+                })
+                .catch(function (error){
+                    console.log(error);
+                });
+        }
+        function doAxiosAjaxGet(){
+            let url="http://localhost/doAjax";
+            let params={params: {"msg":"hello axios"}};
+            axios.get(url,params)
+                .then(function (result){//callback function
+                console.log(result);
+                document.querySelector(".result").innerHTML=JSON.stringify(result.data);//原生的js代码
+                })
+                .catch(function (error){
+                console.log(error);
+                });
+        }
+    </script>
+</body>
+</html>
