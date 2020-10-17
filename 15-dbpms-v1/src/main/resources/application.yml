@@ -1,0 +1,30 @@
+#server
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+#spring
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbsys?serverTimezone=GMT%2B8&characterEncoding=utf8
+    username: root
+    password: root
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/pages/
+    suffix: .html
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:/mapper/*/*.xml
+  configuration:
+    default-statement-timeout: 60
+    map-underscore-to-camel-case: true
+
+#log
+logging:
+  level:
+    com.cy: debug
+  file:
+    path: d:/dblogs/

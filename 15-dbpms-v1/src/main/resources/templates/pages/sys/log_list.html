@@ -1,0 +1,215 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">日志管理</h3>
+				<div class="box-tools">
+					<div class="input-group input-group-sm" style="width: 350px;">
+						<input type="text" name="table_search" id="searchNameId"
+							class="form-control pull-right" placeholder="用户名">
+
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-search">
+                                <i class="fa fa-search"></i>
+							</button>
+							<button type="button" class="btn btn-default btn-delete">删除</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body table-responsive no-padding">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+						    <th><input type="checkbox" id="checkAll">全选</th>
+							<th>用户名</th>
+							<th>操作</th>
+							<th>请求方法</th>
+							<th>请求参数</th>
+							<th>IP</th>
+							<th>执行时长</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyId">
+					    <tr>
+					       <td colspan="7">数据正在加载中...</td>
+					    </tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="pageId" class="box-footer clearfix" dm="100">
+			  
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+</div>
+<script type="text/javascript">
+
+	$( () => {
+		// $("#pageId").load("doPageUI",function (){
+		// 	doGetObjects();
+		// });
+		//上面语句的简化
+		$("#pageId").load("doPageUI",doGetObjects);
+		//查询按钮事件注册
+		$(".input-group-btn")
+				.on("click",".btn-search",doQueryObjects)
+				.on("click",".btn-delete",doDeleteObjects);
+		//thead中全选checkbox的change事件注册及处理
+		$("#checkAll").change(doChangeTBodyCheckBoxState);
+		// $("#checkAll").on("click",doChangeTBodyCheckBoxState);
+		//tbody中checkbox对象的change事件注册及处理
+		// $(".cBox").change(doChangeTHeadCheckBoxState);//在这里注册有问题：页面加载完成cBox元素不存在
+		// $(".cBox").on("click",doChangeTHeadCheckBoxState);//错误
+		$("#tbodyId").on("change",".cBox",doChangeTHeadCheckBoxState);
+	})
+	//基于全选checkbox的状态修改tbody中checkbox的状态。
+	function doChangeTBodyCheckBoxState(){
+		// debugger;
+		//1.获取当前点击对象的checked属性值
+		let flag=$(this).prop("checked");
+		//2.将tbody中所有checkbox元素的值都修改为flag对应的值
+		$("#tbodyId input:checkbox")//获取tbody中类型为checkbox的input元素
+				.prop("checked",flag);//让类型为checkbox的input元素中的checked属性的值为flag
+	}
+	//tbody中checkbox的状态影响thead中全选元素的状态
+	function doChangeTHeadCheckBoxState(){
+		debugger;
+		let flag=true;
+		$("#tbodyId input:checkbox").each(function (){
+			flag=flag && $(this).prop("checked");
+		});
+		$("#checkAll").prop("checked",flag);
+	}
+	//获取选中记录的id值
+	function doGetCheckedIds(){
+		debugger
+		//1.定义一个用于存储id值的数组
+		let idArray=[];//new Array();
+		//2.将选中记录的checkbox的value属性值存储到数组
+		$("#tbodyId input:checkbox:checked")//获取tbody中类型checkbox，并且是选中状态的input对象
+			.each(function (){//each用于迭代这些input元素，每发现一个会执行这个function()函数
+				idArray.push($(this).val());//$(this)指向的是input对象，val()表示获取value属性的值
+			})
+		//3.返回数组
+		return idArray;
+	}
+	//删除时间处理函数
+	function doDeleteObjects() {
+		debugger
+		//1.获取选中的日志记录id并校验
+		let idArrays = doGetCheckedIds();
+		//2.给出删除提示（您确定删除吗）
+		if (!confirm("您确定删除吗?")) return;//confirm函数为js中window对象的一个函数
+		//3.发送异步请求，执行删除操作
+		const url = `log/doDeleteObjects/${idArrays.toString()}`;
+		// let params = {"ids": idArrays.toString()};//[1,2,3]-->toString()-->1,2,3
+		// $.post(url,{"_method":"delete"}, function (result) {
+		// 	if (result.state == 1) {
+		// 		alert(result.message);
+		// 		// doGetObjects();//重新执行查询进行刷新(查询哪一页应该有条件)
+		// 		doRefreshAfterDeleteOk();
+		// 	} else {
+		// 		alert(result.message);
+		// 	}
+		// });
+		$.ajax({
+			type:"delete",//请求方式为delete方式
+			url:url,
+			success:function (result){
+				if (result.state == 1) {
+					alert(result.message);
+					// doGetObjects();//重新执行查询进行刷新(查询哪一页应该有条件)
+					doRefreshAfterDeleteOk();
+				} else {
+					alert(result.message);
+				}
+			}
+		})
+	}
+	function doRefreshAfterDeleteOk(){
+		//1.获取当前页码值，总页数，全选状态
+		let pageCurrent=$("#pageId").data("pageCurrent");
+		let pageCount=$("#pageId").data("pageCount");
+		let state=$("#checkAll").prop("checked");
+		//2.基于条件修改当前页码值
+		if(pageCurrent==pageCount && pageCurrent>1 && state)
+			$("#pageId").data("pageCurrent",--pageCurrent);
+		//3.重新执行查询
+		doGetObjects();
+	}
+	function doQueryObjects(){
+		// debugger;
+		//1.初始化页码
+		$("#pageId").data("pageCurrent",1);
+		//2.执行查询操作
+		doGetObjects();
+	}
+	//向服务端发送异步请求查询用户行为日志信息，并将信息更新到页面上
+	function doGetObjects(){
+		$("#checkAll").prop("checked",false);
+		// debugger;
+		//1.url
+		const url="log/doFindPageObjects";
+		//2.参数
+		let pageCurrent=$("#pageId").data("pageCurrent");
+		// let params="pageCurrent=1";
+		let username=$("#searchNameId").val();//获取页面上输入的用户名，val相当于value
+		if(!pageCurrent) pageCurrent=1;
+		let params={"pageCurrent":pageCurrent,username};
+		//3.send ajax get request
+		$.getJSON(url,params,doHandleQueryResponseResult);
+	}
+	//处理日志查询结果
+	function doHandleQueryResponseResult(result){//server->JsonResult-->json string-->client-->js object
+		// debugger;
+		if(result.state==1){//state==1表示服务端响应的是正常数据
+			//1)tbody位置呈现当前页的日志记录信息(result.data.records)
+			doSetTableBodyRows(result.data.records);
+			//2)pageId位置呈现日志分页信息(总记录数，总页数，当前页码值)
+			doSetPagination(result.data);//result.data-->pageObject
+		}else{//state!=1表示服务端响应的是异常信息
+			//1)方法1：alert 错误信息
+			// alert(result.message);
+			//2)方法2：tbody 位置插入错误信息
+			doSetTableBodyErrors(result.message);
+		}
+		// console.log("server.jsonresult",result);
+	}
+	//处理查询失败的情况
+	function doSetTableBodyErrors(msg){
+		$("#tbodyId").html(`<tr><td colspan="7">${msg}</td></tr>`)
+		let page={pageCurrent: 1,pageCount: 0,rowCount:0};
+		doSetPagination(page);
+	}
+	//在tbody位置呈现当前页记录
+	function doSetTableBodyRows(records){//records==[{},{},{}]
+		//1.获取tbody对象，并清空原有内容
+		let tBody=$("#tbodyId");
+		tBody.empty();
+		//2.迭代日志记录，并将记录呈现在tbody位置
+		records.forEach(item=>{
+			tBody.append(doCreateRow(item));
+		})
+	}
+	function doCreateRow(item){
+		return `<tr>
+					<td><input class="cBox" type="checkbox" value="${item.id}"></td>
+					<td>${item.username}</td>
+					<td>${item.operation}</td>
+					<td>${item.method}</td>
+					<td>${item.params}</td>
+					<td>${item.ip}</td>
+					<td>${item.time}</td>
+				</tr>`;
+	}
+</script>
+
+
+
+
+
+
