@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class IPUtils {
     private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
+
     public static String getIpAddr() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = null;

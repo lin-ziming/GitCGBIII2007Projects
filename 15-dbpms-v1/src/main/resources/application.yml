@@ -14,6 +14,9 @@ spring:
     cache: false
     prefix: classpath:/templates/pages/
     suffix: .html
+  aop:
+    proxy-target-class: false  #false表示JDK代理，true为CGLib代理，默认是true
+    #JDK代理要求被代理的类必须实现某个接口，而CGLib不要求，比较灵活
 
 #mybatis
 mybatis:

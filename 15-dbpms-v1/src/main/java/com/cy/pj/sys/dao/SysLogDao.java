@@ -7,7 +7,10 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface SysLogDao {
+public interface SysLogDao {//系统底层会基于接口产生JDK Proxy（这个代理对象实现了SysLogDao接口）
+
+    int insertObject(SysLog entity);
+
     /**
      * 基于日志记录id执行删除操作
      * @param ids

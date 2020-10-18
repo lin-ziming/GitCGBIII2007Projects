@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)//表示此方法专门处理运行时异常RuntimeException
     public JsonResult doHandleRuntimeException(RuntimeException e){
         e.printStackTrace();//控制台输出
-        log.error("exception msg {}"+e.getMessage());
+        log.error("exception msg {}",e.getMessage());
         return new JsonResult(e);
     }
 }

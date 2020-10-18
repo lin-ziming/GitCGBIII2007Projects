@@ -12,11 +12,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SysLogServiceImpl implements SysLogService {
+public final class SysLogServiceImpl implements SysLogService {
 
     @Autowired
     private SysLogDao sysLogDao;
 
+    @Override
+    public void saveObject(SysLog entity) {
+        String tName = Thread.currentThread().getName();
+        System.out.println("SysLogServiceImpl.saveObject->thread.name->"+tName);
+        //模拟日志写入磁盘时的阻塞
+        try{Thread.sleep(5000);}catch (Exception e){}
+        sysLogDao.insertObject(entity);
+    }
+    @RequiredLog("日志删除")
     @Override
     public int deleteObjects(Integer... ids) {
         //1.参数校验
@@ -30,9 +39,11 @@ public class SysLogServiceImpl implements SysLogService {
         return rows;
     }
 
-    @RequiredLog
+    @RequiredLog("日志查询")
     @Override
     public PageObject<SysLog> findPageObjects(String username, Integer pageCurrent) {
+        String tName = Thread.currentThread().getName();
+        System.out.println("SysLogServiceImpl.findPageObjects->thread.name->"+tName);
         //1.参数校验
         if(pageCurrent==null||pageCurrent<1) throw new IllegalArgumentException("当前页码值不正确");
         //2.查询总记录数并校验
