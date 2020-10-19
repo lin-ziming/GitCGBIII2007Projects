@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.pj.sys.dao.SysMenuDao">
+<!--查询所有菜单以及菜单对应的上级菜单，当没有上级菜单时，菜单名称显示为null-->
+    <select id="findObjects" resultType="map">
+        <!--方法1：用表关联的自关联，左外关联-->
+--         select c.*,p.name parentName
+--         from sys_menus c left join sys_menus p
+--         on c.parentId=p.id
+        <!--方法2：嵌套子查询-->
+        select c.*, (select p.name
+                     from sys_menus p
+                     where c.parentId=p.id) parentName
+        from sys_menus c
+        <!--执行顺序：from sys_menus c -> select c.* ->
+        (进入括号内)-> from sys_menus p -> where c.parentId=p.id
+        -> select p.name -> 括号外命名别名-->
+    </select>
+
+    <insert id="insertObject" parameterType="com.cy.pj.sys.pojo.SysMenu">
+        insert into sys_menus
+        (name,url,type,sort,note,parentId,permission,createdTime,modifiedTime,createdUser,modifiedUser)
+        values
+        (#{name},#{url},#{type},#{sort},#{note},#{parentId},#{permission},now(),now(),#{createdUser},#{modifiedUser})
+    </insert>
+
+    <update id="updateObject">
+        update sys_menus
+        set name=#{name},
+            url=#{url},
+            type=#{type},
+            sort=#{sort},
+            note=#{note},
+            parentId=#{parentId},
+            permission=#{permission},
+            modifiedTime=now(),
+            modifiedUser=#{modifiedUser}
+        where id=#{id}
+    </update>
+
+</mapper>
