@@ -13,12 +13,22 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
+    @GetMapping("/role/doFindObjectById")
+    public JsonResult doFindObjectById(Integer id){
+        return new JsonResult(sysRoleService.findById(id));
+    }
+
     @PostMapping("/role/doDeleteObject")
     public JsonResult doDeleteObject(Integer id){
         sysRoleService.deleteObject(id);
         return new JsonResult("delete ok");
     }
 
+    @PostMapping("/role/doUpdateObject")
+    public JsonResult doUpdateObject(SysRole entity,Integer[] menuIds){
+        sysRoleService.updateObject(entity, menuIds);
+        return new JsonResult("update ok");
+    }
     @PostMapping("/role/doSaveObject")
     public JsonResult doSaveObject(SysRole entity,Integer[] menuIds){
         sysRoleService.saveObject(entity, menuIds);

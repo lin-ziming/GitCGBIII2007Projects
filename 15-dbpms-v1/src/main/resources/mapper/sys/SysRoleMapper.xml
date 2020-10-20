@@ -3,10 +3,75 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.pj.sys.dao.SysRoleDao">
+    
+    <update id="updateObject">
+        update sys_roles
+        set
+        name=#{name},
+        note=#{note},
+        modifiedTime=now(),
+        modifiedUser=#{modifiedUser}
+        where id=#{id}
+    </update>
+    
+    <!--  mybatis框架中实现高级映射时，采用的一种映射策略，例如
+    1、自己定义字段映射（表中字段与类中属性不匹配）
+    2、多表嵌套select查询
+    3、多表关联查询-->
+<!--————————————————————————————————————————————————————————————————————-->
+    <!--方案3  多表关联查询映射-->
+<!--    <resultMap id="SysRoleMenu" type="com.cy.pj.sys.pojo.SysRoleMenu">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="note" column="note"></result>
+        <collection property="menuIds" ofType="integer">
+            <result column="menu_id"/>
+        </collection>
+    </resultMap>
+    <select id="findById" resultMap="SysRoleMenu">
+        select r.id,r.name,r.note,srm.menu_id
+        from sys_roles r left join sys_role_menus srm
+        on r.id=srm.role_id
+        where r.id=#{id}
+    </select>->
 
-    <select id="findById" resultType="com.cy.pj.sys.pojo.SysRoleMenu">
+<!-——————————————————————————————————————————————————————————————————-->
+    <!--方案2-->
+    <!-- resultMap是mybatis中高级映射的写法
+    结果映射 resultMap 元素是 MyBatis 中最重要最强大的元素。
+    resultMap一般用于自定义映射或一些关联查询中 -->
+    <resultMap id="SysRoleMenu" type="com.cy.pj.sys.pojo.SysRoleMenu">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="note" column="note"></result>
+        <collection property="menuIds"
+                    ofType="integer"
+                    select="com.cy.pj.sys.dao.SysRoleMenuDao.findMenuIdsByRoleId"
+                    column="id">
+        </collection>
+    </resultMap>
 
+    <select id="findById" resultMap="SysRoleMenu">
+        select id,name,note
+        from sys_roles
+        where id=#{id}
     </select>
+    <!--以上写法就是为了实现以下sql语句的功能，但是直接这样写不行-->
+ <!--<select id="findById" resultType="com.cy.pj.sys.pojo.SysRoleMenu">
+        select id,name,note,(select menu_id
+                             from sys_role_menus rm
+                             where rm.role_id=r.id) menuIds
+        from sys_roles r
+        where id=#{id}
+    </select> -->
+
+<!--————————————————————————————————————————————————————————————————————-->
+    <!--方案1-->
+<!--<select id="findById" resultType="com.cy.pj.sys.pojo.SysRoleMenu">
+        select id,name,note
+        from sys_roles
+        where id=#{id}
+    </select> -->
 
     <!--
      1)useGeneratedKeys 表示要使用insert操作的自增主键值

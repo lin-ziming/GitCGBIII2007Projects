@@ -11,6 +11,8 @@ public interface SysRoleDao {
 
     SysRoleMenu findById(Integer id);
 
+    int updateObject(SysRole entity);
+
     int deleteObject(Integer id);
 
     int insertObject(SysRole entity);

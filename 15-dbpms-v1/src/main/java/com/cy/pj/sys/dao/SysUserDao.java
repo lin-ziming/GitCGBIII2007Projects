@@ -10,5 +10,5 @@ public interface SysUserDao {
 
     int getRowCount(String username);
 
-    List<SysUserDept> findPageObjects(String name,Integer startIndex,Integer pageSize);
+    List<SysUserDept> findPageObjects(String username,Integer startIndex,Integer pageSize);
 }

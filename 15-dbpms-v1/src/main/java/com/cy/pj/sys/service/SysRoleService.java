@@ -11,6 +11,14 @@ public interface SysRoleService {
     int deleteObject(Integer id);
 
     /**
+     * 更新角色以及角色对应菜单信息
+     * @param entity
+     * @param menuIds
+     * @return
+     */
+    int updateObject(SysRole entity,Integer[] menuIds);
+
+    /**
      * 保存角色以及角色对应菜单信息
      * @param entity
      * @param menuIds
