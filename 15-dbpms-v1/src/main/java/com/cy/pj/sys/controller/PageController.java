@@ -21,7 +21,7 @@ public class PageController {
 //        return "sys/menu_list";
 //    }
 
-    /**rest风格url,简化view请求处理*/
+    /**rest风格url,简化view请求处理，但是rest风格的优先级比较低*/
     @GetMapping("/{module}/{moduleUI}")
     public String doModuleUI(@PathVariable String moduleUI){
 
