@@ -1,6 +1,7 @@
 package com.cy.pj.sys.service.impl;
 
 import com.cy.pj.common.annotation.RequiredLog;
+import com.cy.pj.common.pojo.CheckBox;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.common.util.ValidUtils;
 import com.cy.pj.sys.dao.SysRoleDao;
@@ -9,6 +10,8 @@ import com.cy.pj.sys.dao.SysUserRoleDao;
 import com.cy.pj.sys.pojo.SysRole;
 import com.cy.pj.sys.pojo.SysRoleMenu;
 import com.cy.pj.sys.service.SysRoleService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
 
+
+    @Override
+    public List<CheckBox> findObjects() {
+        return sysRoleDao.findObjects();
+    }
 
     @Override
     public SysRoleMenu findById(Integer id) {
@@ -99,15 +107,17 @@ public class SysRoleServiceImpl implements SysRoleService {
         //throw new IllegalArgumentException("当前页码值不正确");
         ValidUtils.isArgsValid(pageCurrent==null || pageCurrent<1, "当前页码值无效");
         //2.查询总记录数并校验
-        int rowCount = sysRoleDao.getRowCount(name);
+//        int rowCount = sysRoleDao.getRowCount(name);
         //if(rowCount==0)
         // throw new ServiceException("没有找到到对应记录");
-        ValidUtils.isResultValid(rowCount==0, "没有找到对应的记录");
+//        ValidUtils.isResultValid(rowCount==0, "没有找到对应的记录");
         //3.查询当前页记录
-        int pageSize=10;
-        int startIndex=(pageCurrent-1)*pageSize;
-        List<SysRole> records=sysRoleDao.findPageObjects(name, startIndex, pageSize);
+        int pageSize=3;
+//        int startIndex=(pageCurrent-1)*pageSize;
+        //启动pageHelper拦截器
+        Page<SysRole> page = PageHelper.startPage(pageCurrent, pageSize);
+        List<SysRole> records=sysRoleDao.findPageObjects(name/*,startIndex, pageSize*/);
         //4.对查询结果进行封装
-        return new PageObject<>(rowCount, records, pageCurrent, pageSize);
+        return new PageObject<>(/*rowCount*/(int)page.getTotal(), records, pageCurrent, pageSize);
     }
 }

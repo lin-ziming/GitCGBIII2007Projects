@@ -98,14 +98,14 @@
             </if>
         </where>
     </sql>
-    <select id="getRowCount" resultType="int">
-        select count(*)
-        <include refid="queryWhereId"></include>
-   </select>
+<!--    <select id="getRowCount" resultType="int">-->
+<!--        select count(*)-->
+<!--        <include refid="queryWhereId"></include>-->
+<!--   </select>-->
     <select id="findPageObjects" resultType="com.cy.pj.sys.pojo.SysRole">
         select *
         <include refid="queryWhereId"></include>
         order by createdTime desc
-        limit #{startIndex},#{pageSize}
+        <!--limit #{startIndex},#{pageSize}-->
     </select>
 </mapper>

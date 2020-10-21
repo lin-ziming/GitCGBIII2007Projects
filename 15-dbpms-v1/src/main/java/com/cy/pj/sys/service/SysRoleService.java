@@ -1,10 +1,15 @@
 package com.cy.pj.sys.service;
 
+import com.cy.pj.common.pojo.CheckBox;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.sys.pojo.SysRole;
 import com.cy.pj.sys.pojo.SysRoleMenu;
 
+import java.util.List;
+
 public interface SysRoleService {
+
+    List<CheckBox> findObjects();
 
     SysRoleMenu findById(Integer id);
 

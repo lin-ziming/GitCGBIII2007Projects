@@ -2,6 +2,7 @@ package com.cy.pj.sys.controller;
 
 import com.cy.pj.common.pojo.JsonResult;
 import com.cy.pj.sys.pojo.SysRole;
+import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
+
+    @GetMapping("/role/doFindRoles")
+    public JsonResult doFindRoles(){
+        return new JsonResult(sysRoleService.findObjects());
+    }
 
     @GetMapping("/role/doFindObjectById")
     public JsonResult doFindObjectById(Integer id){
