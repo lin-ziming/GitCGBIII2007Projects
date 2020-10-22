@@ -11,6 +11,7 @@ public class MailServiceTests {
 
     @Test
     void testSendMsg(){
+
         mailService.sendMsg("hello spring aop");
     }
 }

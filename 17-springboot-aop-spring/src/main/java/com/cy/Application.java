@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 public class Application {
 
     /**
+     * 只有在配置类中才能用@Bean，启动类也是配置类
      * @Bean注解描述方法是，这个方法的返回值交给spring管理
      * @return
      */

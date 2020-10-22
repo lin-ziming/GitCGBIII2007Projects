@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * 此Advisor中定义了一种规范：
+ * 此Advisor(顾问)中定义了一种规范：
  * 1)定义了哪些方法为切入点方法
  * 2)定义了在切入点方法执行时要织入的通知(扩展逻辑)。
  */
@@ -22,11 +22,11 @@ public class LogAdvisor extends StaticMethodMatcherPointcutAdvisor {
     @Override
     public boolean matches(Method method, Class<?> aClass) {
         try {
-            Method targetMethod = aClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
+            Method targetMethod = aClass.getMethod(method.getName(), method.getParameterTypes());
             return targetMethod.getName().equals("sendMsg");
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 }
