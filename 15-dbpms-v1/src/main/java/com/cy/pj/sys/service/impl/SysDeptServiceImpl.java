@@ -3,6 +3,8 @@ package com.cy.pj.sys.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.cy.pj.common.annotation.ClearCache;
+import com.cy.pj.common.annotation.RequiredCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,8 @@ import com.cy.pj.sys.service.SysDeptService;
 public class SysDeptServiceImpl implements SysDeptService {
 	@Autowired
 	private SysDeptDao sysDeptDao;
+
+	@RequiredCache(name="deptCache",key="depts") //@RequiredCache 注解描述的方法为切入点方法，此方法执行时要进行服务增益
 	@Override
 	public List<Map<String, Object>> findObjects() {
 		List<Map<String, Object>> list=
@@ -33,6 +37,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 		throw new ServiceException("没有部门信息");
 		return list;
 	}
+	@ClearCache(name="deptCache")
 	@Override
 	public int updateObject(SysDept entity) {
 		//1.合法验证
@@ -66,6 +71,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 		//3.返回数据
 		return rows;
 	}
+	@ClearCache(name="deptCache")
 	@Override
 	public int deleteObject(Integer id) {
 		//1.合法性验证

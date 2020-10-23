@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1>The Goods Page</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>remark</th>
+                    <th>createdTime</th>
+                </tr>
+            </thead>
+            <tbody id="">
+                <tr><td colspan="4">Data is loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script>
+        window.onload=function (){
+            let url="/goods/doFindGoods";
+            axios.get(url).then(function (result){
+                console.log(result.data);
+                doHandleQueryResponseResult(result.data);
+            });
+        }
+        function doHandleQueryResponseResult(data){//通过次函数处理服务端的响应结果
+            //1.获取tbody对象，并清空原有内容。
+            let tBody=document.querySelector("tbody");
+            tBody.innerHTML="";
+            //2.迭代服务端响应的数据(data),并将数据追加到tbody中
+            data.forEach(function (item){//循环一次取一行
+                let tr=document.createElement("tr");//Node
+                let td=document.createElement("td");
+                td.innerText=item.id;
+                tr.appendChild(td);
+
+                td=document.createElement("td");
+                td.innerText=item.name;
+                tr.appendChild(td);
+
+                td=document.createElement("td");
+                td.innerText=item.remark;
+                tr.appendChild(td);
+
+                td=document.createElement("td");
+                td.innerText=item.createdTime;
+                tr.appendChild(td);
+
+                tBody.appendChild(tr);
+            });
+        }
+    </script>
+
+</body>
+</html>

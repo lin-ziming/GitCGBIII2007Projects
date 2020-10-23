@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul>li{list-style-type: none}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>The Goods Page</h1>
+        <form>
+            <ul>
+                <li><input type="hidden" v-model="id"></li>
+                <li>name</li>
+                <li><input v-model="name"></li>
+                <li>remark</li>
+                <li><textarea v-model="remark" rows="3" cols="50"></textarea></li>
+                <li><input type="button" @click="doSaveOrUpdate" value="Save Goods"></li>
+            </ul>
+        </form>
+
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>remark</th>
+                <th>createdTime</th>
+                <th colspan="2">operation</th>
+            </tr>
+            </thead>
+            <tbody id="">
+                <tr v-for="g in goods">
+                    <td>{{g.id}}</td>
+                    <td>{{g.name}}</td>
+                    <td>{{g.remark}}</td>
+                    <td>{{g.createdTime}}</td>
+                    <td><a @click="doDeleteById(g.id)">delete</a></td>
+                    <td><a @click="doFindById(g.id)">update</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="js/axios.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script>
+        var vm=new Vue({//vue对象是vue.js应用的入口
+            el:"#app",//vue对象要监控的区域(底层会对这块区域的内容构建一个虚拟的dom树)
+            data:{//此对象用于同步页面数据的一个对象
+                name:"",
+                remark:"",
+                goods:{}
+            },
+            methods:{//同步与页面元素事件处理函数
+                doFindById:function (id){
+                    let url=`goods/doFindById/${id}`;
+                    axios.get(url).then(function (res){
+                       console.log(res.data);
+                       //将服务端返回的数据存储到model对象(data)
+                       this.vm.id=res.data.id;
+                       this.vm.name=res.data.name;
+                       this.vm.remark=res.data.remark;
+                    });
+                },
+                doSaveOrUpdate:function (){
+                    let url=this.id?"goods/doUpdateGoods":"goods/doSaveGoods";
+                    let params={"id":this.id,"name":this.name,"remark":this.remark};
+                    console.log(params);
+                    axios.post(url,params).then(function (res){
+                        alert(res.data);
+                        this.vm.doFindGoods();
+                        this.vm.id="";
+                        this.vm.name="";
+                        this.vm.remark="";
+                    });
+                },
+                doDeleteById:function (id){
+                    let url="goods/doDeleteById/"+id;//假如是跨域访问，这个位置要写绝对路径http://localhost/goods/doFindGoods
+                    axios.get(url).then(function (result){
+                        alert(result.data);
+                        this.vm.doFindGoods();
+                    })
+                },
+                doFindGoods:function (){
+                    let url="goods/doFindGoods";
+                    axios.get(url).then(function (result){
+                        console.log(result.data);
+                        this.vm.goods=result.data;
+                    });
+                }
+            },
+            mounted:function (){
+                this.doFindGoods();
+            }
+        });
+    </script>
+</body>
+</html>

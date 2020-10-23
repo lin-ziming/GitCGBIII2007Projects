@@ -8,6 +8,7 @@ import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.pojo.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
@@ -70,9 +71,11 @@ public class SysMenuServiceImpl implements SysMenuService {
         return rows;
     }
 
-    //    @RequiredLog("查询菜单")
+    @Cacheable("menuCache") //这个注解描述的方法为一个切入点方法
+    // @RequiredLog("查询菜单")
     @Override
     public List<Map<String, Object>> findObjects() {
+        System.out.println("menu.findObjects()");
         return sysMenuDao.findObjects();
     }
 }

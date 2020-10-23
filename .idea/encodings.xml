@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/03-spring-initializr/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/04-springboot-start/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/05-springboot-features/src/main/java" charset="UTF-8" />
@@ -10,10 +10,17 @@
     <file url="file://$PROJECT_DIR$/07-springboot-hikaricp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/08-springboot-mtbatis/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/08-springboot-mtbatis/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/10-springboot-goods-vue/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/10-springboot-goods/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/10-springboot-goods/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/11-springboot-exception/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/12-springboot-response-result/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/13-springboot-ajax/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/14-springboot-activity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/15-dbpms-v1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/16-springboot-aop-start/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/17-springboot-aop-spring/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/18-springboot-aop-cache/src/main/java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

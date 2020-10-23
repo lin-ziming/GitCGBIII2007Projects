@@ -2,6 +2,7 @@ package com.cy.pj.common.advisor;
 
 import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
 
@@ -22,10 +23,13 @@ public class LogAdvisor extends StaticMethodMatcherPointcutAdvisor {
     @Override
     public boolean matches(Method method, Class<?> aClass) {
         try {
+//            Service service = aClass.getAnnotation(Service.class);
+//            if (service == null) {
+//                return false;
+//            }
             Method targetMethod = aClass.getMethod(method.getName(), method.getParameterTypes());
             return targetMethod.getName().equals("sendMsg");
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }

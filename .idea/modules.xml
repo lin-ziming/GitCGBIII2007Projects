@@ -12,9 +12,15 @@
       <module fileurl="file://$PROJECT_DIR$/08-springboot-mtbatis/08-springboot-mtbatis.iml" filepath="$PROJECT_DIR$/08-springboot-mtbatis/08-springboot-mtbatis.iml" />
       <module fileurl="file://$PROJECT_DIR$/09-springboot-webmvc/09-springboot-webmvc.iml" filepath="$PROJECT_DIR$/09-springboot-webmvc/09-springboot-webmvc.iml" />
       <module fileurl="file://$PROJECT_DIR$/10-springboot-goods/10-springboot-goods.iml" filepath="$PROJECT_DIR$/10-springboot-goods/10-springboot-goods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/10-springboot-goods-vue/10-springboot-goods-vue.iml" filepath="$PROJECT_DIR$/10-springboot-goods-vue/10-springboot-goods-vue.iml" />
       <module fileurl="file://$PROJECT_DIR$/11-springboot-exception/11-springboot-exception.iml" filepath="$PROJECT_DIR$/11-springboot-exception/11-springboot-exception.iml" />
       <module fileurl="file://$PROJECT_DIR$/12-springboot-response-result/12-springboot-response-result.iml" filepath="$PROJECT_DIR$/12-springboot-response-result/12-springboot-response-result.iml" />
       <module fileurl="file://$PROJECT_DIR$/13-springboot-ajax/13-springboot-ajax.iml" filepath="$PROJECT_DIR$/13-springboot-ajax/13-springboot-ajax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/14-springboot-activity/14-springboot-activity.iml" filepath="$PROJECT_DIR$/14-springboot-activity/14-springboot-activity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/15-dbpms-v1/15-dbpms-v1.iml" filepath="$PROJECT_DIR$/15-dbpms-v1/15-dbpms-v1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/16-springboot-aop-start/16-springboot-aop-start.iml" filepath="$PROJECT_DIR$/16-springboot-aop-start/16-springboot-aop-start.iml" />
+      <module fileurl="file://$PROJECT_DIR$/17-springboot-aop-spring/17-springboot-aop-spring.iml" filepath="$PROJECT_DIR$/17-springboot-aop-spring/17-springboot-aop-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/18-springboot-aop-cache/18-springboot-aop-cache.iml" filepath="$PROJECT_DIR$/18-springboot-aop-cache/18-springboot-aop-cache.iml" />
     </modules>
   </component>
 </project>

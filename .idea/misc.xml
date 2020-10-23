@@ -14,6 +14,12 @@
         <option value="$PROJECT_DIR$/11-springboot-exception/pom.xml" />
         <option value="$PROJECT_DIR$/12-springboot-response-result/pom.xml" />
         <option value="$PROJECT_DIR$/13-springboot-ajax/pom.xml" />
+        <option value="$PROJECT_DIR$/14-activity-01/pom.xml" />
+        <option value="$PROJECT_DIR$/10-springboot-goods-vue/pom.xml" />
+        <option value="$PROJECT_DIR$/15-dbpms-v1/pom.xml" />
+        <option value="$PROJECT_DIR$/16-springboot-aop-start/pom.xml" />
+        <option value="$PROJECT_DIR$/17-springboot-aop-spring/pom.xml" />
+        <option value="$PROJECT_DIR$/18-springboot-aop-cache/pom.xml" />
       </list>
     </option>
   </component>
