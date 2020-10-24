@@ -36,7 +36,7 @@ public class SysModuleCacheAspect {
     public void doAfterReturning(JoinPoint joinPoint) throws NoSuchMethodException {//method ok(success)
         String cacheName=getCacheName(ClearCache.class,joinPoint);
         Map<String, Object> cache = cacheMap.get(cacheName);
-        cache.clear();
+        if(cache!=null) cache.clear();
     }
 
     private Method getTargetMethod(JoinPoint joinPoint) throws NoSuchMethodException {
@@ -82,7 +82,7 @@ public class SysModuleCacheAspect {
     public Object doCacheAround(ProceedingJoinPoint joinPoint) throws Throwable{
         System.out.println("Get Data from cache");
         Map<String, Object> cache=null;
-        synchronized (SysModuleCacheAspect.class) {//最好用双重校验(双重检测)机制
+        synchronized (SysModuleCacheAspect.class) {//最好用单例模式里的双重校验(双重检测)机制
             String cacheName = getCacheName(RequiredCache.class, joinPoint);
             cache = cacheMap.get(cacheName);
             if (cache == null) {

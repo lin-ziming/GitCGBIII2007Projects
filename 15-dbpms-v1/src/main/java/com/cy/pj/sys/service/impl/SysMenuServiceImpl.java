@@ -8,6 +8,7 @@ import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.pojo.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -52,7 +53,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<Node> findZtreeMenuNodes() {
         return sysMenuDao.findZtreeMenuNodes();
     }
-
+    /**
+     * CacheEvict 此注解描述方法时，表示此方法为一个清除缓存的切入点方法
+     * 这里的menuCache表示要移除缓存数据的缓存对象，allEntries表示移除缓存所有数据，
+     * beforeInvocation表示目标方法执行结束以后移除缓存
+     */
+    @CacheEvict(value = "menuCache",allEntries = true,beforeInvocation = false)//切入点方法
     @Override
     public int deleteObject(Integer id) {
         //1.参数校验

@@ -56,7 +56,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 		//3.返回数据
 		return rows;
 	}
-	
+	@ClearCache(name="deptCache")
 	@Override
 	public int saveObject(SysDept entity) {
 		//1.合法验证
