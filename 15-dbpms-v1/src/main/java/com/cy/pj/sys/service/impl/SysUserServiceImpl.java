@@ -13,13 +13,23 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+//@Transactional注解描述的方法为事务切入点方法，这个方法在执行之前会开启事务，方法执行之后会提交或回滚事务
+@Transactional(readOnly = false,
+          /*rollbackFor = RuntimeException.class 默认值*/
+            rollbackFor = Throwable.class,
+                timeout = 60,/*默认值-1，表示事务不超时*/
+              isolation = Isolation.READ_COMMITTED,/*一般设置READ_COMMITTED,即不会出现脏读即可*/
+            propagation = Propagation.REQUIRED)
+/*SERIALIZABLE串行，解决幻读问题，要锁整张表，性能最差，隔离级别越高性能越差*/
 @Slf4j
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -63,7 +73,8 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserRoleDao.insertObjects(userId,roleIds);
         return rows;
     }
-
+    //方法上事务特性优先级要高于类上定义的事务特性
+    @Transactional(readOnly = true)//建议所有查询操作，事务的readOnly属性值改为true
     @Override
     public Map<String, Object> findObjectById(Integer id) {
         //1.参数校验
@@ -115,7 +126,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserRoleDao.insertObjects(entity.getId(), roleIds);
         return rows;
     }
-
     @Override
     public int validById(Integer id, Integer valid) {
         ValidUtils.isArgsValid(id==null || id<1, "参数不合法，id="+id);
