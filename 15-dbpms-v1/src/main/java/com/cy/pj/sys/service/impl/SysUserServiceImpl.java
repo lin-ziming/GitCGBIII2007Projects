@@ -1,5 +1,6 @@
 package com.cy.pj.sys.service.impl;
 
+import com.cy.pj.common.annotation.RequiredLog;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.common.util.ValidUtils;
@@ -134,8 +135,12 @@ public class SysUserServiceImpl implements SysUserService {
         return rows;
     }
 
+    @Transactional(readOnly = true)
+    @RequiredLog("查询用户")
     @Override
     public PageObject<SysUserDept> findPageObjects(String username, Integer pageCurrent) {
+        String tName = Thread.currentThread().getName();
+        System.out.println("SysUserServiceImpl.findPageObjects->thread.name->"+tName);
         //1.参数校验
         ValidUtils.isArgsValid(pageCurrent==null || pageCurrent<1,"页码值不正确");
         //2.查询记录数并校验

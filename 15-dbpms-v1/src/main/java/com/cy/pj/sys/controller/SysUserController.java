@@ -4,6 +4,9 @@ import com.cy.pj.common.pojo.JsonResult;
 import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.service.SysUserService;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,16 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @RequestMapping("user/doLogin")
+    public JsonResult doLogin(String username,String password){
+        //1.获取subject对象
+        Subject subject = SecurityUtils.getSubject();
+        //2.基于subject对象提交token到SecurityManager
+        UsernamePasswordToken token=new UsernamePasswordToken(username,password);
+        subject.login(token);
+        return new JsonResult("login ok");
+    }
 
     @PostMapping("/user/doUpdatePassword")
     public JsonResult doUpdatePassword(String pwd,String newPwd,String cfgPwd){

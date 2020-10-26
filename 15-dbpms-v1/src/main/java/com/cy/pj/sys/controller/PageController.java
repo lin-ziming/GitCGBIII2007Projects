@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**通过此controller处理页面请求*/
 @Controller
 public class PageController {
+
+    @RequestMapping("doLoginUI")
+    public String doLoginUI(){
+        return "login";
+    }
+
     @GetMapping("/doPageUI")
     public String doPageUI(){
         return "common/page";

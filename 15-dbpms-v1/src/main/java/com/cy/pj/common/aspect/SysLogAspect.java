@@ -16,6 +16,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -27,6 +28,7 @@ import java.util.Date;
  * 1)切入点(Pointcut):织入扩展功能的一些连接点的集合
  * 2)通知方法(Advice):封装了扩展逻辑的方法
  */
+//@Order(1)
 @Slf4j
 @Aspect
 @Component
@@ -103,21 +105,21 @@ public class SysLogAspect {
         entity.setTime(time);
         entity.setCreatedTime(new Date());
         //3.保存用户行为值
-        //sysLogService.saveObject(entity);
-        new Thread(){//一个线程操作系统分配的内存大概是1M，线程启动时
-            // 要调用操作系统的进程，由操作系统的进程来分配线程
-            // 启动线程，底层依托于操作系统
-            //同时大量启动线程的问题：1.频繁创建线程很消耗系统资源，速度慢
-            //2.可能会造成内存溢出
-
-            //异步写日志（自己new thread,借助池中线程，但非tomcat线程池中的线程）
-            //绝对不能让tomcat做这些事情，因为tomcat中的线程的核心作用是：接受、处理客户端的请求
-            //不要把耗时操作交给tomcat池中线程
-            @Override
-            public void run() {
-                sysLogService.saveObject(entity);
-            }
-        }.start();
+        sysLogService.saveObject(entity);
+//        new Thread(){//一个线程操作系统分配的内存大概是1M，线程启动时
+//            // 要调用操作系统的进程，由操作系统的进程来分配线程
+//            // 启动线程，底层依托于操作系统
+//            //同时大量启动线程的问题：1.频繁创建线程很消耗系统资源，速度慢
+//            //2.可能会造成内存溢出
+//
+//            //异步写日志（自己new thread,借助池中线程，但非tomcat线程池中的线程）
+//            //绝对不能让tomcat做这些事情，因为tomcat中的线程的核心作用是：接受、处理客户端的请求
+//            //不要把耗时操作交给tomcat池中线程
+//            @Override
+//            public void run() {
+//                sysLogService.saveObject(entity);
+//            }
+//        }.start();
     }
 
 }

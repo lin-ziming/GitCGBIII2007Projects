@@ -4,12 +4,17 @@ import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.pojo.SysUserDept;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
 @Mapper
 public interface SysUserDao {
+    /**基于用户名去查找用户信息*/
+    @Select("select * from sys_users where username=#{username}")
+    SysUser findUserByUserName(String username);
+
     @Update("update sys_users set password=#{password},salt=#{salt},modifiedTime=now() where id=#{id}")
     int updatePassword(String password,String salt,Integer id);
 

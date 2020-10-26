@@ -7,7 +7,10 @@ import com.cy.pj.sys.dao.SysLogDao;
 import com.cy.pj.sys.pojo.SysLog;
 import com.cy.pj.sys.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +20,9 @@ public final class SysLogServiceImpl implements SysLogService {
     @Autowired
     private SysLogDao sysLogDao;
 
+    @Async //此注解描述的方法为一个异步切入点方法，此方法在执行时会运行在一个独立的线程中
+    @Transactional//默认为Propagation.REQUIRED
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)//独立的事务
     @Override
     public void saveObject(SysLog entity) {
         String tName = Thread.currentThread().getName();
